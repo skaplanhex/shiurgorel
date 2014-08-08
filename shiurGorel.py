@@ -36,7 +36,6 @@ def getHistory():
     f.close()
     return (shiurHistory,beerHistory,foodHistory)
 
-
 def get(num):
     if num > 2:
         print "you fail"
@@ -54,10 +53,8 @@ def get(num):
                 done = True
         return nameToReturn
 
-
 def getShiur():
     return get(0)
-
 def getBeer():
     return get(1)
 def getFood():
@@ -70,10 +67,11 @@ def getAll():
     beerHistory = history[1]
     foodHistory = history[2]
 
+    #do shiur, beer, and food seperately
     shiur = ""
     beer = ""
     food = ""
-    #do shiur, beer, and food seperately
+
     shiurDone = False
     beerDone = False
     foodDone = False
@@ -112,7 +110,6 @@ def main():
         name = get( optionDict[option] )
         print "%s: "%option + name
         
-
     #if no options given, do them all
     else:
         names = getAll()
