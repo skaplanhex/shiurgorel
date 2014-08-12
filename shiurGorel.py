@@ -6,16 +6,31 @@ import sys
 #acceptable options
 options = ("shiur","beer","food")
 optionDict = {"shiur":0,"beer":1,"food":2}
-nameDict = {0:"Shalom",1:"Jordan",2:"Moshe",3:"Andrew",4:"Avi",5:"Yoni",6:"Elad",7:"Eli"}
+nameDict = {0:"Shalom",1:"Jordan",2:"Moshe",3:"Andrew",4:"Avi",5:"Yoni",6:"Elad",7:"Eli",8:"Meir",9:"Yehoshua",10:"Eitan"}
 
 def printUsage():
     print ""
-    print "Usage: shiurGorel <what-to-generate>"
+    print "Usage: ./shiurGorel.py <what-to-generate>"
     print ""
     print "Options for <what-to-generate>: shiur, beer, food"
     print "If no options given, all are generated"
     print ""
     sys.exit(1)
+
+#function to return shiur history for last 5 weeks instead of last 2 weeks for beer/food
+def getShiurHistory():
+    f = open("history.txt",'r') #open just to read
+    lines = f.readlines()
+    if ( len(lines) < 6): #if there aren't at least five weeks of history and the header
+        print "Something's messed up with the history...check it out!"
+        sys.exit(1)
+    names=[]
+    for i in range(1,6): #get last 5 maggidei shiur
+        names.append( lines[-i].split()[0] )
+    f.close()
+    return names
+
+
 
 #return tuple of lists with last two weeks of shiur, beer, and food history
 #assumes that the last two lines are valid history lines (they should be)
@@ -30,7 +45,7 @@ def getHistory():
     if len(twoWeeksAgo) != 3 or len(oneWeekAgo) != 3:
         print "Something's messed up with the end of the history...check it out!"
         sys.exit(1)
-    shiurHistory = [oneWeekAgo[0],twoWeeksAgo[0]]
+    shiurHistory = getShiurHistory()
     beerHistory = [oneWeekAgo[1],twoWeeksAgo[1]]
     foodHistory = [oneWeekAgo[2],twoWeeksAgo[2]]
     f.close()
