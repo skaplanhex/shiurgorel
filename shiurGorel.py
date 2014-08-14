@@ -6,7 +6,7 @@ import sys
 #acceptable options
 options = ("shiur","beer","food")
 optionDict = {"shiur":0,"beer":1,"food":2}
-nameDict = {0:"Shalom",1:"Jordan",2:"Moshe",3:"Andrew",4:"Avi",5:"Yoni",6:"Elad",7:"Eli",8:"Meir",9:"Yehoshua",10:"Eitan"}
+nameDict = {0:"Shalom",1:"Jordan",2:"Moshe",3:"Andrew",4:"Avi",5:"Yoni",6:"Elad",7:"Eli",8:"Meir",9:"Yehoshua",10:"Eitan",11:"Dov"}
 
 def printUsage():
     print ""
@@ -58,6 +58,10 @@ def get(num):
     else:
         fullHistory = getHistory()
         history = fullHistory[num]
+        if num == 1:
+            history += fullHistory[2]
+        elif num == 2:
+            history += fullHistory[1]
         nameToReturn = ""
         done = False
         while not done:
@@ -80,7 +84,7 @@ def getAll():
     history = getHistory()
     shiurHistory = history[0]
     beerHistory = history[1]
-    foodHistory = history[2]
+    foodHistory = history[2] + beerHistory #to make it impossible for someone to bring something every week
 
     #do shiur, beer, and food seperately
     shiur = ""
@@ -101,7 +105,7 @@ def getAll():
     while not beerDone:
         num = rand.randint( 0,len(nameDict) )
         nameDrawn = nameDict[num]
-        if nameDrawn not in beerHistory and nameDrawn != shiur:
+        if nameDrawn not in foodHistory and nameDrawn != shiur:
             beer = nameDrawn
             beerDone = True
 
